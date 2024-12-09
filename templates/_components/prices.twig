@@ -1,0 +1,42 @@
+{% set _productId = _productId ?? null %}
+{% set _product = craft.stripeProducts.id(_productId).one() %}
+
+{% set stripeIds = craft.cookies.get('cart', '') ? craft.cookies.get('cart', '')|split('|') : [] %}
+{% set addToCart = addToCart ?? null %}
+
+{% if addToCart %}
+  {% set stripeIds = stripeIds | merge([addToCart]) %}
+  {% do setCookie('cart', stripeIds|join('|')) %}
+{% endif %}
+
+{% if _product %}
+  {% set prices = _product.getPrices().all() %}
+
+  {% if prices %}
+    {% set activePrices = prices | filter(price => price.stripeStatus == 'active') | values %}
+    {% if activePrices %}
+      <form sprig class="flex flex-wrap items-center gap-3 sm:flex-nowrap">
+        {% if activePrices|length == 1 %}
+          <div class="flex items-center text-xl font-semibold">{{ activePrices[0].data|unitAmount }}</div>
+          <input type="hidden" value="{{ activePrices[0].stripeId }}" name="addToCart">
+        {% else %}
+          <select name="addToCart" class="w-full rounded-xl border-4 px-2 py-3 font-semibold hover:border-orange-500 focus:outline-none sm:w-auto">
+            {% for price in activePrices %}
+              {{ price.stripeStatus }}
+              {% if price.stripeStatus == 'active' %}
+                <option value="{{ price.stripeId }}">{{ price.data.nickname }} - {{ price.data|unitAmount }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        {% endif %}
+        <button sprig type="submit" s-indicator="#indicator{{ _productId }}" class="w-full grow-0 btn sm:w-auto">Add to Cart</button>
+        <div id="indicator{{ _productId }}" class="ml-4 flex items-center">
+          <span class="h-4 w-4 animate-ping rounded-full bg-gray-800 loader"></span>
+        </div>
+      </form>
+    {% else %}
+      <span class="text-xl font-bold text-orange-500">Sold out! 🥹</span>
+    {% endif %}
+  {% endif %}
+{% endif %}
+

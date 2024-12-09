@@ -1,0 +1,14 @@
+{% extends "_layout" %}
+{% block body %}
+  <body class="mx-auto grid max-w-screen-xl gap-10 px-6 py-12 text-gray-600 text-sm/6 sm:px-10 lg:grid-cols-3 xl:gap-20">
+  <h1 class="text-left h1 lg:col-span-3">Lazy Craft CMS Shop</h1>
+  <div class="order-2 lg:order-1 lg:col-span-2">
+    {{ sprig('_components/products', {}, {'id': 'products'}) }}
+  </div>
+  <div class="order-1 lg:order-2 lg:col-span-1 space-y-6">
+    {{ sprig('_components/cart', {}, {'id': 'cart', 's-listen': '#prices'}) }}
+    {{ include('_components/user.twig') }}
+  </div>
+  </body>
+{% endblock %}
+

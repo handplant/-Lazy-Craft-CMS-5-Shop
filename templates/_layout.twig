@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="{{ craft.app.language|slice(0, 2) }}">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Store</title>
+  {{ craft.vite.script("src/js/app.js", false) }}
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+</head>
+
+{% block body %}{% endblock %}
+{% do sprig.registerScript %}
+
+</html>

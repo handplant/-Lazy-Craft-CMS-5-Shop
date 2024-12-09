@@ -1,0 +1,23 @@
+{% extends "_layout" %}
+{% set cancelled = craft.app.request.getQueryParam('cancelled') ?? null %}
+
+{% block body %}
+  <body class="mx-auto max-w-screen-xl gap-10 px-6 py-12 text-gray-600 text-sm/6 sm:px-10 ">
+  <h1 class="text-center h1 mb-24">Lazy Craft CMS Shop</h1>
+  {% if not cancelled %}
+    <p class="text-8xl text-center mb-6">🚨</p>
+    <h2 class="text-center text-4xl">Erroooorrr!</h2>
+  {% else %}
+    <div class="space-y-6 text-center">
+      <p class="text-8xl">🍌</p>
+      <p class="text-8xl font-black">
+        Oh no!
+      </p>
+      <p class="text-3xl font-bold">Did the Good Monkeyz scare you away, or did you just realize bananas are cheaper?</p>
+    </div>
+  {% endif %}
+  <p class="mt-24 text-center">
+    <a href="/" class="btn btn--xl">Shop</a>
+  </p>
+  </body>
+{% endblock %}

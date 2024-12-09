@@ -1,0 +1,39 @@
+{% set rare = rare ?? null %}
+{% set products = craft.stripeProducts.rarely(rare).all() ?? null %}
+
+{% if products %}
+  <div class="h-12">
+    <label class="inline-flex items-center me-5 cursor-pointer">
+      <input sprig type="checkbox" name="rare" value="true" class="sr-only peer" {{ rare ? 'checked' }}>
+      <div
+        class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-yellow-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-yellow-400"></div>
+      <span class="ms-3 text-sm font-medium text-gray-700">Rarely</span>
+    </label>
+  </div>
+
+  <ul class="grid gap-6">
+    {% for product in products %}
+      {% set title = product.headline ?? product.title %}
+      {% set image = product.image.one() ?? null %}
+      {% set text = product.text ?? null %}
+      {% set rare = product.rarely %}
+      <li class="relative grid gap-5 box{{ rare ? ' box--rare' }} sm:grid-cols-3 xl:gap-10">
+        <div class="relative">
+          <img class="w-40 rounded-2xl shadow-2xl sm:col-span-1 sm:w-auto" src="{{ image.getUrl() }}" alt="{{ title }}" loading="lazy">
+          {% if rare %}
+            <span class="absolute -top-4 -left-4 text-5xl">🔥</span>
+          {% endif %}
+        </div>
+        <div class="space-y-5 sm:col-span-2">
+          <h2 class="text-2xl font-bold">{{ title }}</h2>
+          {% if text %}
+            <p>{{ text }}</p>
+          {% endif %}
+          {{ sprig('_components/prices', { _productId: product.id }, { 'id': 'prices' }) }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="text-2xl font bold">No products available 😩</p>
+{% endif %}

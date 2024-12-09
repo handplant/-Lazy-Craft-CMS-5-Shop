@@ -1,0 +1,63 @@
+{% set stripeIds = craft.cookies.get('cart', '') ? craft.cookies.get('cart', '')|split('|') : [] %}
+{% set cancelled = cancelled ?? null %}
+{% set removeFromCart = removeFromCart ?? null %}
+
+{% if removeFromCart %}
+  {% set stripeIds = stripeIds | filter(item => item != removeFromCart) %}
+  {% do setCookie('cart', stripeIds ? stripeIds|join('|') : '') %}
+{% endif %}
+
+{% set cartItems = [] %}
+{% set prices = craft.stripePrices.stripeId(stripeIds).all() ?? null %}
+
+<div class="box space-y-5 lg:mt-12">
+  <p class="text-2xl font-bold">Shopping Cart</p>
+  {#  {% if currentUser %} #}
+  {#    {{ dump(currentUser.getStripeCustomer()) }} #}
+  {#  {% endif %} #}
+
+  {% if stripeIds %}
+    <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-1">
+      {% for price in prices %}
+        {% set title = price.owner.headline ?? price.owner.title %}
+        {% set image = price.owner.image.one() ?? null %}
+        {% set text = price.owner.text ?? null %}
+        <li class="flex gap-5">
+          <img class="h-16 w-16 rounded-2xl shadow-2xl" src="{{ image.getUrl() }}" alt="{{ title }}" loading="lazy">
+          <div class="col-span-2">
+            <p class="font-bold">{{ title }}</p>
+            <p>{{ price.data.nickname }} - {{ price.data|unitAmount }}</p>
+            <button sprig s-val:remove-from-cart="{{ price.stripeId }}" class="link">remove</button>
+          </div>
+        </li>
+        {% set cartItems = cartItems | merge([{ price: price.stripeId, quantity: 1 }]) %}
+      {% endfor %}
+    </ul>
+    <div>
+      {% set params = {
+        invoice_creation: {
+          'enabled': true,
+        },
+      } %}
+      {#      {% if not currentUser %} #}
+      {#        {% set params = params|merge({'customer_creation': 'always'}) %} #}
+      {#      {% endif %} #}
+      {{ tag('a', {
+        href: stripeCheckoutUrl(
+          cartItems,
+          currentUser ?? false,
+          'thank-you?session={CHECKOUT_SESSION_ID}',
+          '/?cancelled=true',
+          params
+        ),
+        text: 'Checkout',
+        class: 'btn btn--xl',
+      }) }}
+    </div>
+    {#    {% if cancelled %} #}
+    {#      <p class="text-3xl text-orange-500 font-black">Whyyyyy cancelled!1!???</p> #}
+    {#    {% endif %} #}
+  {% else %}
+    <p class="text-base">Come on {{ currentUser ? currentUser.firstName : '' }}, add something to the cart already!</p>
+  {% endif %}
+</div>

@@ -1,0 +1,12 @@
+columnSuffix: null
+handle: rarely
+instructions: null
+name: Rarely
+searchable: false
+settings:
+  default: false
+  offLabel: null
+  onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

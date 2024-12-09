@@ -1,0 +1,157 @@
+dateModified: 1733733152
+elementSources:
+  craft\elements\Entry:
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: '*'
+      tableAttributes:
+        - status
+        - section
+        - postDate
+        - expiryDate
+        - authors
+        - link
+      type: native
+    -
+      defaultSort:
+        - title
+        - asc
+      disabled: false
+      key: singles
+      tableAttributes:
+        - status
+        - dateCreated
+        - dateUpdated
+        - revisionCreator
+        - link
+      type: native
+    -
+      heading: Channels
+      type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:04c7059c-00d6-416e-a590-757fea296201'
+      tableAttributes:
+        - status
+        - authors
+        - dateUpdated
+        - revisionCreator
+        - link
+      type: native
+    -
+      key: 'section:6686f777-cfa0-442a-964f-76aeefb81ba6'
+      type: native
+    -
+      heading: Structures
+      type: heading
+    -
+      defaultSort:
+        - structure
+        - asc
+      disabled: false
+      key: 'section:d55a22f5-2f99-4c7c-822f-eb8623035eeb'
+      tableAttributes:
+        - status
+        - dateCreated
+        - authors
+        - dateUpdated
+        - revisionCreator
+      type: native
+    -
+      defaultSort:
+        - structure
+        - asc
+      disabled: false
+      key: 'section:036fe1f3-1a67-4bc2-a89f-aa606c436474'
+      tableAttributes:
+        - status
+        - dateCreated
+        - authors
+        - dateUpdated
+        - revisionCreator
+        - link
+      type: native
+email:
+  fromEmail: webworker.ag@gmail.com
+  fromName: 'Lazy Craft CMS Shop'
+  replyToEmail: null
+  template: ''
+  transportSettings:
+    command: '/usr/sbin/sendmail -t -i'
+  transportType: craft\mail\transportadapters\Sendmail
+fs:
+  files:
+    hasUrls: true
+    name: Files
+    settings:
+      path: $SITE_FILES_PATH
+    type: craft\fs\Local
+    url: $SITE_FILES_URL
+  transforms:
+    hasUrls: true
+    name: Transforms
+    settings:
+      path: $SITE_TRANSFORMS_PATH
+    type: craft\fs\Local
+    url: $SITE_TRANSFORMS_URL
+meta:
+  __names__:
+    1d4b9577-b205-4b96-a529-ddf2d98716d9: Title # Title
+    6eab4b84-63fb-4382-bdd7-d2bee959aafb: $SITE_NAME # $SITE_NAME
+    9a34e9e4-2ce1-4893-80cf-9c5e9e47b225: Image # Image
+    85ac7a39-7c84-4707-9ebc-e0f0666d6023: Simple # Simple
+    163e2603-df59-49f9-a112-13791fe431d2: 'Public Schema' # Public Schema
+    767f97e3-a9dc-4be7-9c72-296ba3cfb077: Builder # Builder
+    998295c3-03ea-4a83-b787-ba1d5a930248: 'Craft 5' # Craft 5
+    a8907d08-5c9c-4299-8fcf-b4bc5dfb74b9: Rarely # Rarely
+    bb561c4c-54b3-40ff-96d3-a135c6abd8a5: Text # Text
+    d55b1175-f5cd-4977-8625-4333d431a8f6: Files # Files
+    e350ba4f-78d8-4850-b773-09f4d8d9a9b5: Common # Common
+plugins:
+  cookies:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  elements-panel:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  shopify:
+    edition: standard
+    enabled: false
+    schemaVersion: 4.0.7
+  sprig:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.1
+  stripe:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.2.0
+    settings:
+      defaultCancelUrl: null
+      defaultSuccessUrl: null
+      productTemplate: ''
+      productUriFormat: ''
+      publishableKey: $STRIPE_PUBLISHABLE_KEY
+      secretKey: $STRIPE_SECRET_KEY
+      syncChangedUserEmailsToStripe: true
+      webhookId: $STRIPE_WH_ID
+      webhookSigningSecret: $STRIPE_WEBHOOK_SECRET
+  vite:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+system:
+  edition: pro
+  live: true
+  name: $SITE_NAME
+  retryDuration: null
+  schemaVersion: 5.5.0.0
+  timeZone: Europe/Berlin

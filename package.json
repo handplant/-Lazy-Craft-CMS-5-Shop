@@ -1,0 +1,24 @@
+{
+  "name": "lazy-craft-cms-5-shop",
+  "version": "1.0.0",
+  "description": "Simple lazy responsive starter kit for CraftCMS 5 Shops.",
+  "author": {
+    "email": "webworker.ag@gmail.com",
+    "name": "Andi Grether",
+    "url": "https://webworker.me/"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "postcss-import": "^16.1.0",
+    "postcss-nesting": "^13.0.1",
+    "tailwindcss": "^3.4.16",
+    "vite": "^6.0.3"
+  }
+}

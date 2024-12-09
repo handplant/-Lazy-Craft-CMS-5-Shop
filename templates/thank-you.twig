@@ -1,0 +1,22 @@
+{% extends "_layout" %}
+{% set session = craft.app.request.getQueryParam('session') %}
+{% set client = craft.stripe.api.client ?? null %}
+{% set checkout = client.getService('checkout').getService('sessions').retrieve(session) %}
+
+{% block body %}
+  <body class="mx-auto max-w-screen-xl gap-10 px-6 py-12 text-gray-600 text-sm/6 sm:px-10 ">
+  <h1 class="text-center h1 mb-24">Lazy Craft CMS Shop</h1>
+  {% if not checkout %}
+    <p class="text-8xl text-center mb-6">🚨</p>
+    <h2 class="text-center text-4xl">Erroooorrr!</h2>
+  {% else %}
+    {% do setCookie('cart', '') %}
+    <p class="text-8xl text-center mb-6">🧡</p>
+    <h2 class="text-center text-5xl font-black">Thank youuuuu!</h2>
+    <p class="text-center text-orange-500 text-5xl font-black mt-2">{{ checkout.customer_details.name }}</p>
+  {% endif %}
+  <p class="mt-24 text-center">
+    <a href="/" class="btn btn--xl">Shop</a>
+  </p>
+  </body>
+{% endblock %}

@@ -1,0 +1,40 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.h1 {
+  @apply font-black text-[clamp(2rem,4vw,5rem)] leading-none;
+}
+
+.box {
+  @apply rounded-2xl bg-gray-100 p-5 xl:p-10;
+
+  &.box--rare {
+    @apply bg-orange-100;
+  }
+}
+
+
+.btn {
+  @apply inline-flex items-center self-center justify-center rounded-xl bg-orange-500 px-4 py-2 font-semibold text-white transition hover:bg-orange-600;
+
+  &.btn--xl {
+    @apply text-lg tracking-wider px-6 py-3;
+  }
+}
+
+.link {
+  @apply font-semibold text-orange-500 underline hover:no-underline;
+}
+
+.loader {
+  display: none;
+}
+
+.htmx-request .loader {
+  display: inline;
+}
+
+.htmx-request .complete {
+  display: none;
+}
